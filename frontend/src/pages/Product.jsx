@@ -8,7 +8,7 @@ import RelatedProducts from '../components/RelatedProducts';
 const Product = () => {
 
 const {productId} = useParams();
-const {products, currency,addToCart} = useContext(ShopContext);
+const {products, currency,addToCart,navigate} = useContext(ShopContext);
 const [productData,setProductData] = useState(false);
 const [image,setImage] = useState('')
 
@@ -78,7 +78,7 @@ useEffect(()=>{
            <p className="mt-5 text-xl font-medium">  Stock Available:<span className="font-normal ml-1">{productData.stock}</span></p>
            <div className='flex gap-2'>
            <button onClick={()=>addToCart(productData._id)} className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700 my-4 cursor-pointer'>ADD TO CART</button>
-           <Link to='/cart'> <button  className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700 my-4 cursor-pointer'>PROCEED TO CART</button> </Link>
+            <button onClick={()=>navigate('/cart')} className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700 my-4 cursor-pointer'>PROCEED TO CART</button> 
            </div>
            
            <hr className='mt-8 sm:w-4/5' />

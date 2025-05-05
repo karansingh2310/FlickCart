@@ -2,6 +2,10 @@ import logo from "./logo.png";
 import hero from "./hero.jpg";
 import star from "./star.png";
 import star_dull from "./star_dull.png";
+import stripe_logo from "./stripe_logo.png"
+import razor_logo from "./razor_logo.png"
+import about from "./about.jpg"
+import contact from "./contact.jpg"
 
 import p_img1 from "./p_img1.jpg";
 import p_img2 from "./p_img2.jpg";
@@ -47,6 +51,7 @@ import p_img41 from "./p_img41.jpg";
 import p_img42 from "./p_img42.jpg";
 import p_img43 from "./p_img43.jpg";
 import p_img44 from "./p_img44.jpg";
+import Contact from "../pages/contact";
 // import p_img45 from "./p_img45.jpg";
 // import p_img46 from "./p_img46.jpg";
 // import p_img47 from "./p_img47.jpg";
@@ -217,6 +222,10 @@ export const assets = {
   hero,
   star,
   star_dull,
+  stripe_logo,
+  razor_logo,
+  about,
+  contact,
 };
 
 export const products = [

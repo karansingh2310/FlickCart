@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { products } from "../assets/assets";
 import {toast} from "react-toastify"
+import { useNavigate } from "react-router-dom";
 
 export const ShopContext = createContext();
 
@@ -13,6 +14,7 @@ const [search,setSearch] = useState('')
 const [showSearch,setShowSearch] = useState(true)
 const [visible, setVisible] = useState(false)
 const [cartItems, setCartItems] = useState({});
+const navigate = useNavigate()
 
 
 
@@ -56,11 +58,31 @@ const [cartItems, setCartItems] = useState({});
         return totalCount;
       };
 
+      const getCartAmount = () => {
+        let totalAmount = 0;
+      
+        for (const itemId in cartItems) {
+          const quantity = cartItems[itemId];
+      
+          const itemInfo = products.find(product => product._id === itemId);
+      
+          if (!itemInfo) {
+            console.log(`Product not found for id: ${itemId}`);
+            continue;
+          }
+      
+          if (quantity > 0) {
+            totalAmount += itemInfo.price * quantity;
+          }
+        }
+      
+        return totalAmount;
+      };
    
 
     
         const value = {
-            products,currency,delivery_fee,search,setSearch,showSearch,setShowSearch,visible,setVisible,cartItems,addToCart,getCartCount,updateQuantity
+            products,currency,delivery_fee,search,setSearch,showSearch,setShowSearch,visible,setVisible,cartItems,addToCart,getCartCount,updateQuantity,getCartAmount,navigate
         }
 
         useEffect(()=>{
