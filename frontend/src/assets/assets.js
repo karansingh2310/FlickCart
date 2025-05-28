@@ -50,7 +50,6 @@ import p_img41 from "./p_img41.jpg";
 import p_img42 from "./p_img42.jpg";
 import p_img43 from "./p_img43.jpg";
 import p_img44 from "./p_img44.jpg";
-import Contact from "../pages/contact";
 // import p_img45 from "./p_img45.jpg";
 // import p_img46 from "./p_img46.jpg";
 // import p_img47 from "./p_img47.jpg";
@@ -224,7 +223,6 @@ export const assets = {
   stripe_logo,
   razor_logo,
   about,
-
 };
 
 export const products = [
