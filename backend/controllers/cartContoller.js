@@ -3,9 +3,11 @@ import productModel from "../models/productModel.js";
 
 const addToCart = async (req, res) => {
   try {
-    const { userId, itemId, size } = req.body;
+    const { itemId, size } = req.body;
+    const userId = req.userId;
+
     const userData = await userModel.findById(userId);
-    let cartData = userData.cartData || {};
+    let cartData = userData.cartData ?? {};
 
     const item = await productModel.findById(itemId);
     if (!item) {
@@ -18,18 +20,11 @@ const addToCart = async (req, res) => {
       if (!cartData[itemId]) cartData[itemId] = {};
   
 
-      if (Number.isNaN(cartData[itemId][size])) {
-        cartData[itemId][size] = 0;
- 
-      }
-      
-
-      cartData[itemId][size] += 1;
-
+      cartData[itemId][size] = (Number(cartData[itemId][size]) || 0) + 1;
     } else {
-      const currentQty = cartData[itemId]?.quantity || 0;
-      cartData[itemId] = { quantity: currentQty + 1 };
+      cartData[itemId] = { quantity: (Number(cartData[itemId]?.quantity) || 0) + 1 };
     }
+
 
     await userModel.findByIdAndUpdate(userId, { cartData });
     res.json({ success: true, message: "Added to Cart" });
@@ -42,7 +37,8 @@ const addToCart = async (req, res) => {
 
 const updateCart = async (req, res) => {
   try {
-    const { userId, itemId, size, quantity } = req.body;
+    const { itemId, size, quantity } = req.body;
+    const userId = req.userId;
     console.log("ye hau quantuhde" ,quantity)
     const userData = await userModel.findById(userId);
     let cartData = userData.cartData || {};
@@ -89,14 +85,24 @@ const updateCart = async (req, res) => {
 
 const getUserCart = async (req, res) => {
   try {
-    const { userId } = req.body;
-    const userData = await userModel.findById(userId);
-    const cartData = userData.cartData || {};
+    const userId = req.userId;
+    const user = await userModel.findById(userId);
 
-    res.json({ success: true, cartData });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    const cartData = user.cartData || {}; 
+    return res.status(200).json({ success: true, cartData });
   } catch (error) {
-    console.error("Error fetching cart data:", error);
-    res.status(500).json({ success: false, message: "Internal server error" });
+    console.error(" Caught error in getUserCart:", error);
+
+    if (res.headersSent) {
+      console.log("Headers already sent! Skipping response.");
+      return;
+    }
+
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 

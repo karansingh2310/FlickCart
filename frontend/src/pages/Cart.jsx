@@ -12,24 +12,28 @@ const Cart = () => {
   useEffect(() => {
     const tempData = [];
 
-    for (const itemId in cartItems) {
-      const item = cartItems[itemId];
-
-      if (typeof item === 'object') {
-        for (const size in item) {
-          if (item[size] > 0) {
-            tempData.push({ _id: itemId, quantity: item[size], size });
+    if(products.length>0){
+      for (const itemId in cartItems) {
+        const item = cartItems[itemId];
+  
+        if (typeof item === 'object') {
+          for (const size in item) {
+            if (item[size] > 0) {
+              tempData.push({ _id: itemId, quantity: item[size], size });
+            }
+          }
+        } else {
+          if (item > 0) {
+            tempData.push({ _id: itemId, quantity: item });
           }
         }
-      } else {
-        if (item > 0) {
-          tempData.push({ _id: itemId, quantity: item });
-        }
       }
+  
+      setCartData(tempData);
     }
 
-    setCartData(tempData);
-  }, [cartItems]);
+  
+  }, [cartItems,products]);
 
 
   return cartData.length > 0 ? (
