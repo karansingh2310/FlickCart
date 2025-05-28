@@ -5,7 +5,6 @@ import star_dull from "./star_dull.png";
 import stripe_logo from "./stripe_logo.png"
 import razor_logo from "./razor_logo.png"
 import about from "./about.jpg"
-import contacts from "/contacts.jpg";
 
 import p_img1 from "./p_img1.jpg";
 import p_img2 from "./p_img2.jpg";
@@ -225,7 +224,7 @@ export const assets = {
   stripe_logo,
   razor_logo,
   about,
-  contacts,
+
 };
 
 export const products = [
